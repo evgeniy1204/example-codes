@@ -1,0 +1,137 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block base_content %}
+<main id="main-container">
+    <!-- Page Content -->
+    <div class="bg-white">
+        <div class="homepage-slider">
+            <h4>Et in quem primo egressi que</h4>
+            <div id="myCarousel" class="carousel slide col-xs-12 col-md-6" data-interval="3000" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="active item">
+                        <h3>Et in quem primo egressi que</h3>
+                        <p>Et in quem primo egressi sunt locum Troia vocatur pagoque inde Troiano nomen est: gens universa Veneti ppellati. Et in quem primo egressi sunt locum Troia vocatur pagoque inde.</p>
+                    </div>
+                    <div class="item">
+                        <h3>Et in quem primo egressi que</h3>
+                        <p>Et in quem primo egressi sunt locum Troia vocatur pagoque inde Troiano nomen est: gens universa Veneti ppellati. Et in quem primo egressi sunt locum Troia vocatur pagoque inde.</p>
+                    </div>
+                    <div class="item">
+                        <h3>Et in quem primo egressi que</h3>
+                        <p>Et in quem primo egressi sunt locum Troia vocatur pagoque inde Troiano nomen est: gens universa Veneti ppellati. Et in quem primo egressi sunt locum Troia vocatur pagoque inde.</p>
+                    </div>
+                </div>
+                <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                    <span class="fa fa-angle-left" aria-hidden="true"></span>
+                </a>
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+                <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                    <span class="fa fa-angle-right" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+        <div class="extra">
+            {% for article in articles|sort_by_field('createdAt')|slice(0, 2) %}
+                {% if loop.index is odd %}
+                <div class="extra-top col-xs-12">
+                    <div class="extra-inner">
+                        <div class="extra-inner-text col-xs-12 col-sm-6">
+                            <div class="extra-info">
+                                <span class="text-upper">{% trans %}from{% endtrans %}<a href="">{% trans %}extra{% endtrans %}</a></span>
+                                <h4>{{ article.subject }}</h4>
+                                <p>{{ article.previewText}}</p>
+                                <a href="{{ path('article_show_homepage', {'id' : article.id}) }}" class="pull-right a_pink">{% trans %}Read more{% endtrans %}<span>></span></a>
+                            </div>
+                        </div>
+                        <div class="extra-inner-img col-xs-12 col-sm-6">
+                            <img src="{{ asset('/articles-preview/'~article.path~'') }}" alt="" class="img-responsive extra-img">
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="extra-bottom col-xs-12">
+                    <div class="extra-inner">
+                        <div class="extra-inner-img col-xs-12 col-sm-6">
+                            <img src="{{ asset('/articles-preview/'~article.path~'') }}" alt="" class="img-responsive extra-img">
+                        </div>
+                        <div class="extra-inner-text col-xs-12 col-sm-6">
+                            <div class="extra-info">
+                                <span class="text-upper">{% trans %}from{% endtrans %}<a href="">{% trans %}extra{% endtrans %}</a></span>
+                                <h4>{{ article.subject }}</h4>
+                                <p>{{ article.previewText}}</p>
+                                <a href="{{ path('article_show_homepage', {'id' : article.id}) }}" class="pull-right a_pink">{% trans %}Read more{% endtrans %}<span>></span></a>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="events col-xs-12">
+            <div class="events-container">
+                <div class="col-xs-12 col-sm-4">
+                    <div class="events-card">
+                        <div class="events-card-text">
+                            <span class="text-upper">{% trans %}from{% endtrans %}<a href="">{% trans %}extra{% endtrans %}</a></span>
+                            <h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </h6>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate minima placeat, suscipit.
+                            </p>
+                            <div class="color-green"><i class="fa fa-calendar-o" aria-hidden="true"></i></div>
+                            <div class="events-date ">{% trans %}Da Lun 18 Luglio a Mar 19 Luglio{% endtrans %}</div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="events-card-bottom">
+                            Pubblicato il 21/03/16
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="events-card">
+                        <div class="events-card-text">
+                            <span class="text-upper">from <a href="">extra</a></span>
+                            <h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </h6>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate minima placeat, suscipit.
+                            </p>
+                            <div class="color-green"><i class="fa fa-calendar-o" aria-hidden="true"></i></div>
+                            <div class="events-date ">Da Lun 18 Luglio a Mar 19 Luglio</div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="events-card-bottom">
+                            Pubblicato il 21/03/16
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="events-card">
+                        <div class="events-card-text">
+                            <span class="text-upper">from <a href="">extra</a></span>
+                            <h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </h6>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate minima placeat, suscipit.
+                            </p>
+                            <div class="color-green"><i class="fa fa-calendar-o" aria-hidden="true"></i></div>
+                            <div class="events-date ">Da Lun 18 Luglio a Mar 19 Luglio</div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="events-card-bottom">
+                            Pubblicato il 21/03/16
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- Page Content -->
+<!-- END Page Content -->
+</main>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block base_content %}
+	<!-- Main Container -->
+	<main id="main-container">
+		<div class="search_by_tag bg-white">
+			<h3>{% trans %} All articles by tag {% endtrans %}: <span> <a href="{{ path('app_articles_index', {'tag' : app.request.get('tag')}) }}">#{{ app.request.get('tag') }}</a></span></h3>
+			<div class="articles_search_all">
+				{% for article in articles %}
+					<div class="articles_search_item">
+						<span class="text-upper">from <a href="">extra</a></span>
+						<h4><a class="article_h4" href="{{ path('article_show', {'id' : article.id}) }}">{{ article.subject }}</a></h4>
+						<div class="article_attr_wrap">
+							<ul>
+								{% for tag in article.tags %}
+									<li><span><a href="{{ path('app_articles_index', {'tag' : tag.tagname}) }}">{{ tag.tagname }}</a></span></li>
+								{% endfor %}
+								<li>{{ article.createdAt|date('d.m.Y') }}</li>
+							</ul>
+						</div>
+						<div class="article_short_desc">
+							<p>{{ article.previewText }}</p>
+						</div>
+					</div>
+				{% endfor %}
+				<div class="border-t search-pagination">
+					{{ knp_pagination_render(articles) }}
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

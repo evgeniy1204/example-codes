@@ -1,0 +1,108 @@
+<div class="col-sm-5 col-lg-4">
+    <!-- Products -->
+    <div class="block">
+        <div class="block-header bg-blue">
+            <ul class="block-options">
+                <li>
+                    <a href="{{ path('synopses_new') }}"><p class="pink-text">{{ 'Add synopsis'|trans }}</p></a>
+                </li>
+            </ul>
+            <h3 class="block-title"><i class="fa fa-file-text" style="color:#E83162"></i>&nbsp&nbsp {% trans %}My synopses{% endtrans %}</h3>
+        </div>
+        <div class="block-content">
+	        {% if app.user.synopsesIsShow|length %}
+                <ul class="list list-simple list-li-clearfix">
+                 {% for synopsis in app.user.synopsesIsShow|sort_by_field('enabled')|slice(0, countOutputSynopsesRightSideBar) %}
+                    {% include 'SynopsesBundle:Synopses:_item-synopsis-list.html.twig' with {'synopsis' : synopsis, 'info' : false} only %}
+                 {% endfor %}
+                </ul>
+                <div class="text-center push">
+                    <a href="{{ path('synopses_index') }}" class="tutte" style=";">{% trans %}View all{% endtrans %}</a>
+                </div>
+            {% else %}
+                <p>{% trans %}You haven't uploaded any synopses yet{% endtrans %}</p>
+            {% endif %}
+        </div>
+    </div>
+    <!-- END Products -->
+
+    <!-- Downloads -->
+    <div class="block">
+        <div class="block-header bg-blue">
+            <h3 class="block-title"><i class="fa fa-thumbs-o-up"  style="color:#E83162"></i>&nbsp&nbsp {% trans %}My downloads{% endtrans %}</h3>
+        </div>
+        <div class="block-content">
+            {% if app.user.downloadsIsShow|length %}
+                {% for download in app.user.downloadsIsShow|reverse|slice(0, countOutputSynopsesRightSideBar) %}
+                    {% include 'SynopsesBundle:Synopses:_item-synopsis-list.html.twig' with {'synopsis' : download.synopses, 'control' : false, 'info' : false} only %}
+                {% endfor %}
+                <div class="text-center push">
+                    <a href="{{ path('download_list') }}" class="tutte" style=";">{% trans %}View all{% endtrans %}</a>
+                </div>
+            {% else %}
+                <p>{% trans %}You don't have any downloads yet{% endtrans %}</p>
+            {% endif %}
+        </div>
+    </div>
+    <!-- END Downloads -->
+
+
+    <!-- Followers -->
+    <div class="block">
+        <div class="block-header bg-blue">
+            <ul class="followers-toggle" data-toggle="tabs">
+                <li class="active pull-left">
+                    <a href="#followers">{% trans %}Followers{% endtrans %} {{ app.user.follows|length }}</a>
+                </li>
+                <li class="pull-right">
+                    <a href="#segiuti">{% trans %}Follows{% endtrans %} {{ app.user.followers|length }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="block-content">
+            <div class="block-content tab-content">
+                <div class="tab-pane fade in active" id="followers">
+	                {% if app.user.follows|length %}
+                    <ul class="nav-users push">
+                        {% for follower in app.user.follows.toArray|slice(0, countOutputSynopsesRightSideBar) %}
+                            <li>
+                                <a href="{{ path('user_profile_show', {'id' : follower.id}) }}">
+                                    <img class="img-avatar" src="{{ asset('user-avatar/'~follower.path~'') }}" alt="">
+                                    {{ follower.name }} {{ follower.surname }}
+                                    <div class="font-w400 text-muted"><small>{% trans %}Course{% endtrans %} {{ follower.course }}, {% trans %}Classe{% endtrans %} {{ follower.classes }}, {% trans %}Year{% endtrans %} {{ follower.year }}</small></div>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="text-center push">
+                        <a href="{{ path('subscription_index', {'user' : app.user.id}) }}" class="tutte" style=";">{% trans %}View all{% endtrans %}</a>
+                    </div>
+	                {% else %}
+                        <p>{% trans %}You don't have any followers{% endtrans %}</p>
+	                {% endif %}
+                </div>
+                <div class="tab-pane fade" id="segiuti">
+                    {% if app.user.followers|length %}
+                        <ul class="nav-users push">
+                            {% for seguiti in app.user.followers.toArray|slice(0, countOutputSynopsesRightSideBar) %}
+                            <li>
+                                <a href="{{ path('user_profile_show', {'id' : seguiti.id}) }}">
+                                    <img class="img-avatar" src="{{ asset('user-avatar/'~seguiti.path~'') }}" alt="">
+                                    {{ seguiti.name }} {{ seguiti.surname }}
+                                    <div class="font-w400 text-muted"><small>{% trans %}Course{% endtrans %} {{ seguiti.course }}, {% trans %}Classe{% endtrans %} {{ seguiti.classes }}, {% trans %}Year{% endtrans %} {{ seguiti.year }}</small></div>
+                                </a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                        <div class="text-center push">
+                            <a href="{{ path('subscription_index', {'user' : app.user.id}) }}" class="tutte" style=";">{% trans %}View all{% endtrans %}</a>
+                        </div>
+                    {% else %}
+                        <p>{% trans %}You don't have any follows yet{% endtrans %}</p>
+                    {% endif %}
+                </div>                                        
+            </div>
+        </div>
+    </div>
+    <!-- END Followers -->
+</div>

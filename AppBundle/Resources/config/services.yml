@@ -1,0 +1,33 @@
+parameters:
+    beta-omega.app.synopses.items-on-page-default: 10
+    beta-omega.app.count-output-synopses.right-side-bar: 3
+    beta-omega.user.show.synopses: 4
+    beta-omega.user.show.topics: 2
+    beta-omega.user.show.questions: 2
+    beta-omega.admin.items-on-page: 10
+    beta-omega.synopsis.show.questions: 10
+
+services:
+    beta-omega.app.twig_extension:
+        class: BetaOmega\AppBundle\Twig\AppExtension
+        public: true
+        tags:
+            - { name: twig.extension }
+
+    beta-omega.app.manager:
+        class: BetaOmega\AppBundle\Services\AppManager
+        arguments: ["@doctrine.orm.entity_manager", "@security.token_storage", "@beta-omega.email.sender", "@service_container"]
+        calls:
+            - [setRequest, ["@request_stack"]]
+
+    beta-omega.app.notification.manager:
+            class: BetaOmega\AppBundle\Services\NotificationEmailManager
+            arguments: ["@doctrine.orm.entity_manager", "@beta-omega.email.sender", "@service_container"]
+            calls:
+                - [setRequest, ["@request_stack"]]
+
+    beta-omega.article.manager:
+            class: BetaOmega\AppBundle\Services\ArticleManager
+            arguments: ["@doctrine.orm.entity_manager", "@service_container"]
+            calls:
+                - [setRequest, ["@request_stack"]]

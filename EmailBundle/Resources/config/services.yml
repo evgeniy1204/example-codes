@@ -1,0 +1,6 @@
+services:
+    beta-omega.email.sender:
+        class: BetaOmega\EmailBundle\Services\EmailManager
+        arguments: ["@service_container", "@templating"]
+        calls:
+            - [setRequest, ["@request_stack"]]

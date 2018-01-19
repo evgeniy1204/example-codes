@@ -1,0 +1,39 @@
+{% form_theme complaint_form 'AppBundle:Form:fields.html.twig' %}
+
+<div class="modal" id="modal-send-report" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-blue">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title"> {% trans %}Complaint{% endtrans %}</h3>
+                </div>
+                <div class="block-content">
+                    {{ form_start(complaint_form, {'action' : path('complaint_form', {'type' : type, 'id' : id}), 'attr': {'novalidate' : 'novalidate', 'class': 'form-horizontal push-10-t form-complaint-review' } }) }}
+                        {{ form_widget(complaint_form.complaint) }}
+                        {{ form_widget(complaint_form.text) }}
+                        {{ form_rest(complaint_form) }}
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <center>
+                                    <button class="btn btn-minw btn-square btn-danger" type="button" data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
+                                    <button class="btn btn-minw btn-square btn-success send-complaint-form" type="button">{% trans %}Send{% endtrans %}</button>
+                                </center>
+                            </div>
+                        </div>
+                    {{ form_end(complaint_form) }}   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#modal-send-report').on('hidden.bs.modal', function () {
+        $(this).remove();
+    })
+</script>

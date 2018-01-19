@@ -1,0 +1,88 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block base_content %}
+    <!-- Main Container -->
+    <main id="main-container">
+        <!-- Page Header -->
+        <div class="content bg-image" style="background-image: url('{{ asset('bundles/app/img/photos/photo8@2x.jpg') }}">
+            <div class="push-50-t push-15 clearfix">
+                <div class="push-15-r pull-left animated fadeIn">
+                    <img class="img-avatar img-avatar-thumb" src="{{ asset('user-avatar/'~app.user.path~'') }}" alt="">
+                    <div class="upload-new">
+                        <button class="" type="button" data-url="{{ path('upload_user_avatar') }}">
+                            <i class="fa fa-camera" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                <h1 class="m-left-80 h2 text-white push-5-t animated zoomIn">{{ app.user.name }} {{ app.user.surname }}</h1>
+                <h2 class="m-left-80 h4 text-white-op animated zoomIn">{{ app.user.dateOfBirth|countYear }} {% trans %}Year old{% endtrans %}</h2>
+            </div>
+        </div>
+        <!-- END Page Header -->
+        <!-- modal upload avatar -->
+        <div class="modal" id="modal-normal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="block block-themed block-transparent remove-margin-b">
+                        <div class="block-header bg-blue">
+                            <ul class="block-options">
+                                <li>
+                                    <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                                </li>
+                            </ul>
+                            <h3 class="block-title">{% trans %}Upload avatar{% endtrans %}</h3>
+                        </div>
+                        <div class="block-content">
+                            <div class="old-avatar">
+                                <img class="img-avatar img-avatar-thumb" src="{{ asset('user-avatar/'~app.user.path~'') }}" alt="">
+                            </div>
+                            <div class="upload-new-form">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- end modal -->
+
+        <!-- Stats -->
+        <div class="content bg-white border-b user-info">
+            <div class="row items-push">
+                <div class="col-xs-12 col-md-8">
+                    <h3>{{ app.user.year }} {% trans %}Year{% endtrans %}, {{ app.user.classes }} {% trans %}Class{% endtrans %}, {% trans %}Course{% endtrans %}: {{ app.user.course }}</h1>
+                    <h4>{{ app.user.exchangeProgramm }}</h4>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="dispens">
+                        <span>{{ app.user.synopsesActiveCount }}</span> {% trans %}Synopses{% endtrans %}
+                    </div>
+                    <div class="followers">
+                        <span>{{ app.user.follows|length }}</span> {% trans %}Followers{% endtrans %}
+                    </div>
+
+                </div>
+                
+            </div>
+        </div>
+        <!-- END Stats -->
+
+        <!-- Page Content -->
+        <div class="content content-boxed">
+	        {% for label, messages in app.session.flashbag.all %}
+		        {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+				        {{ message }}
+                    </div>
+		        {% endfor %}
+	        {% endfor %}
+            <div class="row">
+                {% block content %} {% endblock %}
+                {% block right_sidebar %}
+                    {% include 'AppBundle:Default:_right-sidebar.html.twig' %}
+                {% endblock %}
+            </div>
+        </div>
+        <!-- END Page Content -->
+    </main>
+    <!-- END Main Container -->
+{% endblock %}

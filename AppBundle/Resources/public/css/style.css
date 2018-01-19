@@ -1,0 +1,95 @@
+[type=hidden], [type=hidden] + label, .hidden {
+	display: none;
+}
+
+.nav-main li.active {
+	background-color: #0070B9;
+}
+
+/* end default */
+
+.delete-synopsis {
+	display: inline-block;
+}
+
+.tags input {
+	float: left;
+	width: 70%;
+}
+
+.tags .btn {
+	background: transparent;
+	font-size: 21px;
+	padding: 6px 3px
+}
+
+#tags {
+	margin-top: 20px;
+}
+
+#tags .form-group {
+	margin-left: 0;
+}
+
+
+/* list synopses */
+
+.list-content-item {
+	width: 100%;
+}
+
+.list-content-item .descr {
+	float: left;
+	margin-bottom: 15px;padding-bottom: 10px;
+}
+
+.list-content-item .item-inform {
+	padding-top: 10px;
+}
+
+
+.list-content-item .item-inform span {
+	display: inline-block;
+}
+
+.list-content-item .item-inform > span {
+	padding-right: 15px;
+}
+
+.list-content-item .item-inform span:nth-child(3) {
+	float: right;
+	padding: 0 15px;
+}
+
+.list-content-item .item-inform span:nth-child(2) {
+	float: right;
+}
+
+.list-content-item .item-inform span i {
+	color: #00365B;
+}
+
+.list-content-item .buttons-no-border {
+	float: right;
+}
+
+.clearfix {
+	clear: both;
+}
+
+.block-header.bg-blue i {
+	color: #E83162;
+}
+
+.block > .nav-tabs > li.active {
+  background: #fff;
+}
+
+/* end */
+
+.header-avatar {
+	border-radius: 50%;
+	display: block;
+	width: 33px;
+	margin-right: 15px;
+}

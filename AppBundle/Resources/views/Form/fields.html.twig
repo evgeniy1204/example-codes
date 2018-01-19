@@ -1,0 +1,100 @@
+{% extends 'bootstrap_3_layout.html.twig' %}
+
+{% block form_widget_simple -%}
+	{{ form_errors(form) }}
+	<div class="form-group {% if form_errors(form)|length %}has-error{% endif %}" {% if type is not defined or type in ['hidden'] %} {% endif %}>
+	    <div class="col-xs-12">
+	        <div class="form-material form-material-primary floating">
+		    {% if type is not defined or type not in ['file', 'hidden'] %}
+		        {%- set attr = attr|merge({class: (attr.class|default(''))|trim}) -%}
+		    {% endif %}
+		    {{- parent() -}}
+		    {{- form_label(form, null, { widget: parent() }) -}}
+		    </div>
+		</div>
+	</div>
+{%- endblock form_widget_simple %}
+
+{% block textarea_widget -%}
+	{{ form_errors(form) }}
+	<div class="form-group {% if form_errors(form)|length %}has-error{% endif %}">
+	    <div class="col-xs-12">
+	        <div class="form-material form-material-primary floating">
+		    {% set attr = attr|merge({class: (attr.class|default(''))|trim}) %}
+		    {{- parent() -}}
+		    {{- form_label(form, null, { widget: parent() }) -}}
+		    </div>
+		</div>
+	</div>
+{%- endblock textarea_widget %}
+
+{% block file_widget %}
+ {% spaceless %}
+	 {{ form_errors(form) }}
+	 <div class="form-group {% if form_errors(form)|length %}has-error{% endif %}">
+	    <div class="col-xs-12">
+	        <div class="form-material form-material-primary floating">
+		        <input type="file" {{ block('widget_attributes') }} />
+			</div>
+	    </div>
+	</div>
+ {% endspaceless %}
+{% endblock %}
+
+{% block url_widget %}
+	{% spaceless %}
+		{{ form_errors(form) }}
+		<div class="form-group {% if form_errors(form)|length %}has-error{% endif %}">
+			<div class="col-xs-12">
+				<div class="form-material form-material-primary floating open">
+					<input type="url" {{ block('widget_attributes') }} class="form-control" />
+					{{- form_label(form, null, { widget: parent() }) -}}
+				</div>
+			</div>
+		</div>
+	{% endspaceless %}
+{% endblock %}
+
+{% block choice_widget_collapsed -%}
+	{{ form_errors(form) }}
+	<div class="form-group {% if form_errors(form)|length %}has-error{% endif %}">
+		<div class="col-xs-12">
+			{{- form_label(form, null, { widget: parent() }) -}}
+		</div>
+		<div class="col-xs-12">
+	        <div class="form-material form-material-primary floating open">
+		    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) %}
+		    {{- parent() -}}
+		    </div>
+	    </div>
+	</div>
+{%- endblock %}
+
+{%- block checkbox_widget -%}
+	<div class="form-btn-left">
+		<label class="css-input css-checkbox css-checkbox-primary">
+			<input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} /><span></span> {% trans %}Show{% endtrans %}
+		</label>
+	</div>
+{%- endblock checkbox_widget -%}
+
+{%- block rating_type_widget -%}
+    {% spaceless %}
+    {{ form_errors(form) }}
+    {{ form_widget(form, { 'attr': { 'class': 'input ' ~ form.vars.attr.class} }) }}
+
+    <div class="js-rating" data-score="0" ></div>
+    {% endspaceless -%}
+{%- endblock %}
+
+{% block tag_type_widget %}
+	{% spaceless %}
+	{{ form_errors(form) }}
+		<div class="col-xs-5 field-tag">
+			<div class="form-material form-material-primary">
+				<input type="text" {{ block('widget_attributes') }}  class="form-control" {% if value is not empty %}value="{{ value }}" {% endif %}>
+				<label class="control-label required" for="betaomega_appbundle_synopses_tags_1_tagname">{{ 'Tagname'|trans }}</label>
+			</div>
+		</div>
+	{% endspaceless -%}
+{% endblock tag_type_widget %}

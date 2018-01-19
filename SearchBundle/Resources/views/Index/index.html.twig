@@ -1,0 +1,127 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block base_content %}
+   <main id="main-container">
+                <!-- forum search -->
+                <div class="content ">
+                    <div class="row items-push">
+                        <div class="col-xs-12">
+                            <h1 class="page-heading-underline">
+                                {% trans %}Dispense{% endtrans %}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="search-block">
+                        <div class="content col-xs-12 col-sm-9">
+                            <form action="{{ path('search_index') }}" method="GET" >
+                                <div class="form-group col-xs-12 col-md-5">
+                                    <select class="form-control" id="course-search" name="course-search">
+                                        <option>{% trans %}Scegli il corso{% endtrans %}</option>
+                                        {% for course in coursesService.courses %}
+                                            <option value="{{ course.id }}"> {{ course.name }} </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group col-xs-12 col-md-3">
+                                    <select class="form-control" id="class-search" name="class-search">
+                                        <option>{% trans %}Scegli la classe{% endtrans %}</option>
+                                        {% for class in coursesService.classes %}
+                                            <option value="{{ class.id }}"> {{ class.name }} </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group col-xs-12 col-md-3">
+                                    <select class="form-control" id="year-search" name="year-search">
+                                        <option>{% trans %}Scegli l'anno{% endtrans %}</option>
+                                        {% for year in coursesService.years %}
+                                            <option value="{{ year.id }}"> {{ year.year }} </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group col-xs-12 col-md-1">
+                                    <button class="btn btn-primary" type="submit" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo">CERCA</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="content col-xs-12 col-sm-9">   
+                            <form action="{{ path('dynamic_search_synopses') }}" data-url-reset="{{ path('dynamic_search_synopses') }}" method="post">
+                                <div class="col-sm-11">
+                                    <input class="form-control width-100" type="text" name="dynamic-search" placeholder="Cerca qui.." id="dynamic-search">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="block-content search-res-inner">
+                        <div id="content">
+                            {% if synopses is defined %}
+                                {% include 'SearchBundle:Index:_list-search.html.twig' with {'synopses' : synopses, 'pagination' : true, 'totalCount' : totalCount} only %}
+                            {% endif %}
+                        </div>
+                        {% if is_granted('ROLE_USER') %}
+                            <div class="col-xs-12 col-md-3">
+                                <div class="search-container">
+                                    <div class="back-image">
+                                        <img src="{{ asset('bundles/app/img/corso.jpg') }}" class="img-responsive" alt="">
+                                    </div>
+                                    <div class="search-text">
+                                        <a href="{{ path('search_synopses', {'type' : 'ccy'}) }}">
+                                            <i class="fa fa-home fa-2x" aria-hidden="true"></i>
+                                        <br>
+	                                        {% trans %}Dispense del tuo corso{% endtrans %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <div class="search-container">
+                                    <div class="back-image">
+                                        <img src="{{ asset('bundles/app/img/status.jpg') }}" class="img-responsive" alt="">
+                                    </div>
+                                    <div class="search-text">
+                                        <a href="{{ path('search_synopses', {'type' : static_search_page.download}) }}">
+                                            <i class="fa fa-arrow-down fa-2x" aria-hidden="true"></i>
+                                        <br>
+	                                        {% trans %}Dispense più scaricate in settimana{% endtrans %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <div class="search-container">
+                                    <div class="back-image">
+                                        <img src="{{ asset('bundles/app/img/comment.jpg') }}" class="img-responsive" alt="">
+                                    </div>
+                                    <div class="search-text">
+                                        <a href="{{ path('search_synopses', {'type' : static_search_page.commented}) }}">
+                                            <i class="fa fa-commenting fa-2x" aria-hidden="true"></i>
+                                        <br>
+	                                        {% trans %}Dispense più commentate{% endtrans %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3"><div class="search-container">
+                                    <div class="back-image">
+                                        <img src="{{ asset('bundles/app/img/laptop.jpg') }}" class="img-responsive" alt="">
+                                    </div>
+                                    <div class="search-text">
+                                        <a href="{{ path('search_synopses', {'type' : static_search_page.recomended}) }}">
+                                            <i class="fa fa-thumbs-up fa-2x" aria-hidden="true"></i>
+                                        <br>
+	                                        {% trans %}Possono piacerti{% endtrans %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div> 
+                        {% else %}
+                            <h5 class="text-center">{% trans %}You should be logged to have more options{% endtrans %} <a href="{{ path('fos_user_security_login') }}">{% trans %}Login{% endtrans %}</a></h5>
+                        {% endif %}
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+            </main>
+{% endblock %}

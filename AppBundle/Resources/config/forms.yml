@@ -1,0 +1,12 @@
+services:
+    form.type.complaint:
+            class: BetaOmega\AppBundle\Form\ComplaintsType
+            arguments: ["@doctrine.orm.entity_manager"]
+            tags:
+                - { name: form.type, alias: betaomega_appbundle_complaints }
+
+    beta-omega.app.tag.form.type:
+            class: BetaOmega\AppBundle\Form\TagType
+            arguments: ["@doctrine.orm.entity_manager"]
+            tags:
+                - { name: form.type, alias: tag_type }

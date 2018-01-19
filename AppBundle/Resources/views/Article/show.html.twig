@@ -1,0 +1,42 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block base_content %}
+    <main id="main-container">
+        <div class="article-body">
+            <div class="article-tags">
+                <ul>
+	                {% for tag in article.tags %}
+		                {% if tag.id is odd %}
+                            <li><span class="tag-blue"><a href="{{ path('app_articles_index', {'tag' : tag.tagname}) }}">{{ tag.tagname }}</a></span></li>
+		                {% endif %}
+		                {% if tag.id is even %}
+                            <li><span class="tag-red"><a href="{{ path('app_articles_index', {'tag' : tag.tagname}) }}">{{ tag.tagname }}</a></span></li>
+		                {% endif %}
+	                {% endfor %}
+                </ul>
+            </div>
+            <div class="article-title">
+                <h4>{{ article.subject }}</h4>
+                <span>{{ article.createdAt|date('d.m.Y') }}</span>
+            </div>
+            <div class="article-content">
+                <ul class="article-author">
+                    <li>
+                        <b>{% trans %}Author{% endtrans %}:</b> {{ article.author }}</li>
+                    <li>
+                        <span class="article-soc"><a href="https://www.facebook.com/BetaOmegaChi"><i class="fa fa-facebook" aria-hidden="true"></i></a></span>
+                        <span class="article-soc"><a href="https://www.instagram.com/betaomegachi/"><i class="fa fa-instagram" aria-hidden="true"></i></a></span>
+                        <span class="article-soc"><a href="https://twitter.com/BetaOmegaChi"><i class="fa fa-twitter" aria-hidden="true"></i></a></span>
+                    </li>
+                </ul>
+                <div class="article-text">
+                    {{ article.text|replace({'<script>' : '', '<noscript>' : ''})|raw }}
+                </div>
+                <div class="clear"></div>
+                <div class="top-link">
+                    <a href="#main-container">{% trans %}Back to top{% endtrans %}</a>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

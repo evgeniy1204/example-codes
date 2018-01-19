@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <title>{% block title %}BetaOmega{% endblock %}</title>
+
+        <meta name="description" content="OneUI - Admin Dashboard Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        <meta name="author" content="pixelcave">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        {% include 'default/styles.html.twig' %}
+
+    </head>
+    <body>
+        <div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
+            {% include 'AppBundle:Default:_menu-sidebar.html.twig' %}
+
+            {% include 'AppBundle:Default:_header.html.twig' %}
+            
+            {% block base_content %}
+    
+            {% endblock %}
+
+            <!-- Footer -->
+            <footer id="page-footer" class="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
+                <div class="pull-left copyr">
+                    <i>βΩX, ALL RIGHTS RESERVED, 2017</i>
+                </div>
+                <div class="pull-right">
+                    <ul class="footer-nav">
+                        <li><a href="">{% trans %}Contacts{% endtrans %}</a></li>
+                        <li><a href="">{% trans %}Privaci{% endtrans %}</a></li>
+                        <li><a href="">{% trans %}Chi siamo{% endtrans %}</a></li>
+                        <li><a href="{{ path('fos_user_security_login') }}">{% trans %}Area personale{% endtrans %}</a></li>
+                        <li><a href="">{% trans %}Collabora con noi{% endtrans %}</a></li>
+                    </ul>
+                </div>
+            </footer>
+            <!-- END Footer -->
+        </div>
+        
+        {% block modals %}
+            {% include 'AppBundle:Default:_modals.html.twig' %}
+        {% endblock %}
+
+        {% include 'default/js.html.twig' %}
+
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

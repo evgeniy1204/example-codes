@@ -1,0 +1,44 @@
+<!-- Sidebar -->
+<nav id="sidebar">
+    <!-- Sidebar Scroll Container -->
+    <div id="sidebar-scroll">
+        <!-- Sidebar Content -->
+        <!-- Adding .sidebar-mini-hide to an element will hide it when the sidebar is in mini mode -->
+        <div class="sidebar-content">
+            <!-- Side Header -->
+            <div class="side-header side-content bg-white-op">
+                <button class="btn btn-link text-white pull-right hidden-md hidden-lg btn-close-menu" type="button" data-toggle="layout" data-action="sidebar_close"><i class="fa fa-times"></i></button>
+                <center><a href="{{ path('homepage') }}"><img src="{{ asset('bundles/app/img/logo.png') }}" alt=""></a></center>
+            </div>
+            <!-- END Side Header -->
+
+            <!-- Side Content -->
+            <div class="side-content">
+                <ul class="nav-main">
+                    <li {% if app.request.get('_route') in ['search_index','search_synopses'] %}class="active"{% endif %}>
+                        <a href="{{ path('search_index') }}"><i class="fa fa-file"></i>{% trans %}Synopses{% endtrans %}</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-book"></i>{{ 'Change books'|trans }}</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-calendar"></i>{{ 'Events'|trans }}</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-home"></i>{{ 'Place'|trans }}</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-money"></i>{{ 'Discount'|trans }}</a>
+                    </li>
+                    <li {% if app.request.get('_route') in ['forum_index'] %}class="active"{% endif %}>
+                        <a href="{{ path('forum_index') }}"><i class="fa fa-comment"></i>{{ 'Forum'|trans }}</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END Side Content -->
+        </div>
+        <!-- Sidebar Content -->
+    </div>
+    <!-- END Sidebar Scroll Container -->
+</nav>
+<!-- END Sidebar -->

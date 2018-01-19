@@ -1,0 +1,99 @@
+<!-- Header -->
+<header id="header-navbar" class="content-mini content-mini-full">
+    <!-- Header Navigation Right -->
+    <ul class="nav-header pull-right">
+	    {% if app.request.get('_route') in ['search_index', 'fos_user_profile_show', 'search_synopses', 'synopses_show'] %}
+            <li class="header-add-synopsis">
+                <a href="{{ path('synopses_new') }}" class="pink-text"><button class="btn btn-pink">{{ 'Add synopsis'|trans }}</button></a>
+            </li>
+	    {% endif %}
+        <li>
+            <div class="avatar" >
+            {% if is_granted('ROLE_USER') %}
+                <img src="{{ asset('user-avatar/'~app.user.path~'') }}" class="centered-and-cropped header-avatar" alt="Avatar" width="33" height="33">
+            {% endif %}
+            </div>
+            <div class="user-action">
+                <div class="hello" style="">
+                    {% trans %}Benvenuto{% endtrans %}
+                </div>
+                    <div class="username-top" style="">
+                        {% if is_granted('ROLE_USER') %}
+                            <a href="{{path('fos_user_profile_show') }}"><span style="font-family: SFUISemibold; color: #0089DE; font-size: 14px; text-transform: uppercase;">{{ app.user.name }} {{ app.user.surname }}</span></a>
+                            <div class="btn-group">
+
+                                <button data-toggle="dropdown" type="button" style="border: none !important; background: none; ">
+                                
+                                    <span class="caret" style="margin-top: -6px; margin-left: -5px; color: #0089DE"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right">
+	                                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                        <li class="dropdown-header">{% trans %}Admin{% endtrans %}</li>
+                                        <li>
+                                            <a tabindex="-1" href="{{path('admin_index') }}">
+                                                <i class="fa fa-cog pull-right"></i>{% trans %}Admin panel{% endtrans %}
+                                            </a>
+                                        </li>
+	                                {% endif %}
+                                    <li class="dropdown-header">{% trans %}Profile{% endtrans %}</li>
+                                    <li>
+                                        <a tabindex="-1" href="{{path('fos_user_profile_show') }}">
+                                            <i class="si si-user pull-right"></i>{% trans %}Profile{% endtrans %}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a tabindex="-1" href="{{ path('fos_user_profile_edit') }}">
+                                            <i class="si si-settings pull-right"></i>{% trans %}Setting{% endtrans %}
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li class="dropdown-header">{% trans %}Contacts{% endtrans %}</li>
+                                    <li data-toggle="modal" data-target="#modal-send-msg" class="contact-admin" data-admin-email="{{ emailAdmin }}" data-extra-url="{{ path('app_sender') }}">
+                                        <a href="#">
+                                            <i class="fa fa-envelope-o pull-right"></i>{% trans %}Contact to admin{% endtrans %}
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li class="dropdown-header">{% trans %}Action{% endtrans %}</li>
+                                    <li>
+                                        <a tabindex="-1" href="{{ path('fos_user_security_logout') }}">
+                                            <i class="si si-logout pull-right"></i>{% trans %}Log out{% endtrans %}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        {% else %}
+                            <a href="{{ path('fos_user_security_login') }}">{% trans %}Login{% endtrans %}</a>
+                        {% endif %}
+                </div>
+            </div>
+        </li>
+    </ul>
+    <!-- END Header Navigation Right -->
+
+    <!-- Header Navigation Left -->
+    <ul class="nav-header pull-left">
+        <li class="hidden-md hidden-lg">
+            <!-- Layout API, functionality initialized in App() -> uiLayoutApi() -->
+            <button class="btn btn-default" data-toggle="layout" data-action="sidebar_toggle" type="button">
+                <i class="fa fa-navicon"></i>
+            </button>
+        </li>
+        <li class="hidden-xs hidden-sm">
+            <!-- Layout API, functionality initialized in App() -> uiLayoutApi() -->
+            <button class="btn btn-default" data-toggle="layout" data-action="sidebar_mini_toggle" type="button">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
+        </li>
+        <li>
+            <span class="social-header"><a href="https://twitter.com/BetaOmegaChi" target="_blank"><img src="{{ asset('bundles/app/img/twitter.png')}}" alt=""></a></span>
+            <span class="social-header"><a href="https://www.instagram.com/betaomegachi/" target="_blank"><img src="{{ asset('bundles/app/img/instagram.png')}}" alt="" ></a></span>
+            <span class="social-header"><a href="https://www.facebook.com/BetaOmegaChi" target="_blank"><img src="{{ asset('bundles/app/img/facebook.png')}}" alt="" ></a></span>
+        </li>
+
+
+
+    </ul>
+    <!-- END Header Navigation Left -->
+</header>
+<!-- END Header -->

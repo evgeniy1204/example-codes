@@ -1,0 +1,71 @@
+<div id="search-projects">
+    <h2 class="push-10">{{ totalCount }} <span class="h5 font-w400 text-muted">{% trans %}dispense trovate{% endtrans %}</span></h2>
+    {% if synopses|length %}
+    <div class="pull-right">
+        <select class="form-control" name="sort-by" id="sortBy">
+            <option value="0" {% if app.request.get('sortBy') == '0' %}selected{% endif %}>{% trans %}Ordina per{% endtrans %}</option>
+            <option value="createdAt" {% if app.request.get('sortBy') == 's.createdAt' %}selected{% endif %}>{% trans %}Date{% endtrans %}</option>
+            <option value="rating" {% if app.request.get('sortBy') == 'rating' %}selected{% endif %}>{% trans %}Rating{% endtrans %}</option>
+            <option value="downloads" {% if app.request.get('sortBy') == 'downloads' %}selected{% endif %}>{% trans %}Downloads{% endtrans %}</option>
+        </select>
+    </div>
+    {% if showByNone is defined == false %}
+    <div class="pull-right">
+        <select class="form-control" id="showPer">
+            <option value="10" {% if app.request.get('show') == '10' %}selected{% endif %}>10</option>
+            <option value="20" {% if app.request.get('show') == '20' %}selected{% endif %}>20</option>
+            <option value="50" {% if app.request.get('show') == '50' %}selected{% endif %}>50</option>
+            <option value="{{ totalCount }}" {% if app.request.get('show') == totalCount %}selected{% endif %}>{% trans %}Tutti{% endtrans %}</option>
+        </select>
+    </div>
+    {% endif %}
+    <table class="table table-striped table-vcenter">
+        <thead>
+            <tr>
+                <th>Dispense</th>
+                <th class="text-center" style="width: 15%;">{% trans %}Autore{% endtrans %}</th>
+                <th class="text-right" style="width: 15%;"></th>
+                <th class="text-right" style="width: 10%;"></th>
+                <th class="text-right" style="width: 10%;"></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for synopsis in synopses.items|sort_by_field(app.request.get('sortBy')) %}
+            <tr>
+                <td>
+                    <h3 class="h5 font-w600 push-10">
+                        <a class="link-effect" href="{{ path('synopses_show', {'id' : synopsis.id}) }}"> {{ synopsis.name }} </a>
+                        <ul class="user-data">
+                            <li>{% trans %}Course{% endtrans %}: <span>{{ synopsis.course }}</span></li>
+                            <li>{% trans %}Class{% endtrans %}: <span>{{ synopsis.classes }}</span></li>
+                            <li>{% trans %}Year{% endtrans %}: <span>{{ synopsis.year }}</span></li>
+                        </ul>
+                    </h3>
+                    <div class="font-s13 text-muted">
+                        <p> {{ synopsis.description|length > 300 ? synopsis.description|slice(0, 300) ~ '...' : synopsis.description}} </p>
+                    </div>
+                </td>
+                <td class="text-center"><a href="{{ path('user_profile_show', {'id' : synopsis.user.id}) }}"> {{ synopsis.user.name }} {{ synopsis.user.surname }} </a></td>
+                <td class="text-center">
+                
+                    <span class="search-icons"><i class="fa fa-calendar" aria-hidden="true" style="color: #00365B"></i> {{ synopsis.createdAt|date('d/m/Y') }} </span>                                             
+              
+                </td>
+                <td class="text-center">
+                    <span class="search-icons" ><i class="fa fa-download" aria-hidden="true" style="color: #00365B"></i> {{ synopsis.downloads|length }} </span>
+                </td>
+                <td class="text-center">
+                   <span class="search-icons" ><i class="fa fa-eye" aria-hidden="true" style="color: #00365B"></i> {{ synopsis.shows }} </span> 
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+     {% if pagination %}
+        <div class="border-t">
+            {{ knp_pagination_render(synopses) }}
+        </div>
+    {% endif %}
+</div>
+
